@@ -24,7 +24,7 @@ export default function LoginPage() {
 
     return (
       <main>
-        <div className="text-blue-600">
+        <div className="text-blue">
             <form onSubmit={handleSubmit}>
                 <input type="text" value={login} onChange={handleChangeLogin} />
                 <input type="password" value={password} onChange={hangleChangePassword} />
