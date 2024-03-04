@@ -1,32 +1,11 @@
-import dbConnect from "."
-import User from '../../models/user'
+import User from '../../models/user';
 
-
-let client
-let db
-let users
-
-async function init(){
-    if(db) return
+export async function getUsers(req, res){
     try {
-        client = await dbConnect
-        db = await client.db()
-        users = await db.collection('users')
-    } catch (err){
-        throw new Error('Failed to stablish connection to database')
-    }
-}
-
-export async function getUsers(){
-    try {
-        if(!users) await init()
-        const result = await users
-            .find({})
-            .limit(20)
-        
-        return { status: 200, users: result }
+        const result = await User.find()
+        res.status(200).json({ success: true, data: result })
     }catch (err) {
-        return { err: 'Failed to fetch'}
+        res.status(400).json({ success: false})
     }
 }
 
