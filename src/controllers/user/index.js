@@ -11,11 +11,14 @@ export async function getUsers(req, res){
 
 export async function createUser(req, res){
     try{
-        const { firstName, lastName } = req.body;
+        const { firstName, lastName, email, login, password } = req.body;
 
         const user = await User.create({
             firstName,
-            lastName
+            lastName,
+            email,
+            login,
+            password
         })
 
         return res.status(201).json({ success: true, data: user})
