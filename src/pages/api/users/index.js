@@ -1,4 +1,4 @@
-import { getUsers, createUser } from "../../../lib/mongo/users";
+import { getUsers, createUser } from "../../../controllers/user";
 import dbConnect from "../../../lib/mongo";
 
 const handler = async (req, res) => {
