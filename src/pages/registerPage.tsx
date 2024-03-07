@@ -1,5 +1,5 @@
-import { FormEventHandler, useState } from "react"
-import { FormValidator } from "@/lib/formValidator"
+import { useState } from "react"
+import FormValidator from "@/lib/formValidator"
 
 interface User {
     login: string,
@@ -29,7 +29,7 @@ const RegisterPage = () => {
 
     const handleSubmitForm: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        FormValidator(user);
+        FormValidator({user});
     }
 
     return(

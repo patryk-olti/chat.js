@@ -6,11 +6,36 @@ interface User {
     email: string,
     firstName: string,
     lastName: string
+};
+
+interface IError {
+    name: string,
+    message: string
+};
+
+type Props = {
+    readonly user: User
 }
 
-export const FormValidator = (user: User) => {
-    const [ errorMessage, setErrorMessage ] = useState<string>();
-    //check login
+function FormValidator(props: Props){
     
+    const { user } = props;
+
+
+    // spread out the object
+    const { login, password, email, firstName, lastName } = user
+    //check login
+    if(login.length < 3){
+        console.log('too short');
+    }
+
+    if(login.match("[a-zA-Z]"))
+    {
+        console.log('type:' + login)
+    }
+
     console.log(user);
-}
+    
+};
+
+export default FormValidator;
