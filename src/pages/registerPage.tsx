@@ -29,7 +29,9 @@ const RegisterPage = () => {
 
     const handleSubmitForm: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        FormValidator({user});
+        let isValid = FormValidator({user});
+
+        console.log(isValid);
     }
 
     return(
@@ -50,6 +52,30 @@ const RegisterPage = () => {
                     value={user.password}
                     onChange={handleChangeUserProperty}
                     name='password'/>
+
+                <input 
+                    className="text-center text-xs" 
+                    type="email" 
+                    placeholder="email" 
+                    value={user.email}
+                    onChange={handleChangeUserProperty}
+                    name='email'/>
+                
+                <input 
+                    className="text-center text-xs" 
+                    type="firstName" 
+                    placeholder="firstName" 
+                    value={user.firstName}
+                    onChange={handleChangeUserProperty}
+                    name='firstName'/>
+
+                <input 
+                    className="text-center text-xs" 
+                    type="lastName" 
+                    placeholder="lastName" 
+                    value={user.lastName}
+                    onChange={handleChangeUserProperty}
+                    name='lastName'/>
 
                 <button 
                     type='submit'
