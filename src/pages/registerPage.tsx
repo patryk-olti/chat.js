@@ -1,6 +1,8 @@
 import { useState } from "react"
 import FormValidator from "@/lib/formValidator"
 
+import "../../src/app/globals.css";
+
 interface User {
     login: string,
     password: string,
@@ -19,6 +21,9 @@ const RegisterPage = () => {
         lastName: ''
     })
 
+    const [ created, setCreated ] = useState<number>(0); //0 - start, 1 - created, 2 - failed
+
+
     const handleChangeUserProperty: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const { name, value } = event.target;
         setUser( prevState => ({
@@ -31,6 +36,8 @@ const RegisterPage = () => {
         event.preventDefault();
         let isValid = FormValidator({user});
 
+        if(!isValid){ setCreated(2); }
+
         if(isValid){
             const response = await fetch('/api/users', {
                 method: 'POST',
@@ -42,7 +49,8 @@ const RegisterPage = () => {
             const result = await response.json();
             const success = await result.success;
             
-            console.log(success);
+            if(success === true){ setCreated(1); }
+            if(success === false){ setCreated(2); }
         }
     }
 
@@ -88,6 +96,10 @@ const RegisterPage = () => {
                     value={user.lastName}
                     onChange={handleChangeUserProperty}
                     name='lastName'/>
+
+                { created === 0 ? <p className='h-15'></p> : null }
+                { created === 1 ? <p className='h-15 text-green-600'>User has been created.</p> : null }
+                { created === 2 ? <p className='h-15 text-red-600'>Problem with user creation.</p> : null }
 
                 <button 
                     type='submit'
