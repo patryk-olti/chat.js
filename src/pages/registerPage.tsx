@@ -27,11 +27,23 @@ const RegisterPage = () => {
         }))
     }
 
-    const handleSubmitForm: React.FormEventHandler<HTMLFormElement> = (event) => {
+    const handleSubmitForm: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
         let isValid = FormValidator({user});
 
-        console.log(isValid);
+        if(isValid){
+            const response = await fetch('/api/users', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const result = await response.json();
+            const success = await result.success;
+            
+            console.log(success);
+        }
     }
 
     return(
