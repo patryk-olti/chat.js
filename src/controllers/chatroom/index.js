@@ -11,17 +11,14 @@ export async function getChatRoom(req, res){
 
 export async function createChatRoom(req, res){
     try{
-        /*const { firstName, lastName, email, login, password } = req.body;
+        const { name, adminId } = req.body;
 
-        const user = await User.create({
-            firstName,
-            lastName,
-            email,
-            login,
-            password
-        })*/
+        const chatRoom = await ChatRoom.create({
+            name,
+            adminId
+        })
 
-        return res.status(201).json({ success: true })
+        return res.status(201).json({ success: true, data: chatRoom })
     }catch(err){
         return res.status(400).json({ success: false })
     }
