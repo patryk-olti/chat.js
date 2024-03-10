@@ -1,3 +1,7 @@
+import SingleMessage from "./singleMessage";
+
+import { Types } from 'mongoose';
+
 const MessageBox = () => {
 
     return (

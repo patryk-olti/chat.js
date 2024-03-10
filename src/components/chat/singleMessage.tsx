@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { Types } from 'mongoose';
 
 type Props = {
@@ -9,10 +11,14 @@ const SingleMessage = (props: Props) => {
 
     const { userId, message } = props;
 
+    useEffect(() => {
+        console.log(message);
+    }, [message])
+
     return (
         <div>
             <div> img </div>
-            <div> mess </div>
+            <div> {message} </div>
         </div>
     )
 }
