@@ -2,7 +2,13 @@ const MessageBox = () => {
 
     return (
         <div>
-            Message Box
+            <div>
+                <div> mess </div>
+                <div> message </div>
+            </div>
+            <div>
+                <input type="text" />
+            </div>
         </div>
     )
 }
