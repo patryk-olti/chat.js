@@ -14,7 +14,7 @@ type MessageArray = {
 const MessageBox = () => {
 
     const [ message, setMessage ] = useState<string>('');
-    const [ messageArry, setMessageArry ] = useState<MessageArray[]>([
+    const [ messageArray, setMessageArray ] = useState<MessageArray[]>([
         {
             id: 1,
             user: 'Patryk',
@@ -39,8 +39,24 @@ const MessageBox = () => {
         setMessage(event.target.value);
     }
 
+    const handleSetMessageArray = (message: string) => {
+        let newIndex = messageArray.length;
+
+        if(message.length > 0) {
+            setMessageArray([
+                ...messageArray,
+                {
+                    id: newIndex+1,
+                    user: 'Patryk',
+                    message: message,
+                    ownerChat: true
+                }
+            ])
+        }
+    }
+
     const handleSubmit = () => {
-        console.log(message);
+        handleSetMessageArray(message);
         setMessage('');
     }
 
@@ -49,7 +65,7 @@ const MessageBox = () => {
 
             <div className="grow">
                 {
-                    messageArry.map((elem) => {
+                    messageArray.map((elem) => {
                         return elem.ownerChat ?
                             <div className="bg-slate-100 flex items-center justify-start my-2" key={elem.id}>
                                 <div className="border-2 border-black rounded-full flex items-center justify-center w-5 h-5 mx-2"> {elem.user.charAt(0)} </div>
