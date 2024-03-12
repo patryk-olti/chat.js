@@ -1,8 +1,14 @@
+import SingleUser from "./singleUser";
+
 const UserList = () => {
 
     return(
         <div>
-            UserList
+            <SingleUser />
+            <SingleUser />
+            <SingleUser />
+            <SingleUser />
+            <SingleUser />
         </div>
     )
 }
