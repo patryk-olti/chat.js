@@ -1,8 +1,20 @@
+import "../app/globals.css";
+
 const Chat = () => {
 
     return(
         <div>
-            Chat
+            <div>
+                 menu 
+            </div>
+            <div>
+                <div>
+                    chat.js
+                </div>
+                <div>
+                    user list
+                </div>
+            </div>
         </div>
     )
 }
