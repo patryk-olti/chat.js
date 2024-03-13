@@ -1,6 +1,8 @@
 import "../../app/globals.css";
+import { Key } from "react";
 
 type Props = {
+    key: Key,
     name: string
 }
 
