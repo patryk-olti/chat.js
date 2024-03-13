@@ -61,7 +61,7 @@ const MessageBox = () => {
     }
 
     return (
-        <div className="h-lvh border-2 border-indigo-500 w-1/2 flex flex-col justify-end">
+        <div className="h-full border-2 border-indigo-500 flex flex-col justify-end">
 
             <div className="grow">
                 {
