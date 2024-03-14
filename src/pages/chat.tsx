@@ -58,7 +58,7 @@ const Chat = () => {
                 <div>hamburger</div>
             </div>
             <div className="flex grow">
-                <div className="w-4/5 p-1 grow border border-red-500">
+                <div className="w-4/5 p-1 grow border">
                     <MessageBox />
                 </div>
                 <div className="w-1/5 p-1">

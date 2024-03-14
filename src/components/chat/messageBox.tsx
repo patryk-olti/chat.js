@@ -61,40 +61,48 @@ const MessageBox = () => {
     }
 
     return (
-        <div className="h-full border-2 border-indigo-500 flex flex-col justify-end">
+        <div className="h-full flex flex-col justify-end p-2">
 
             <div className="grow">
                 {
                     messageArray.map((elem) => {
                         return elem.ownerChat ?
-                            <div className="bg-slate-100 flex items-center justify-start my-2" key={elem.id}>
-                                <div className="border-2 border-black rounded-full flex items-center justify-center w-5 h-5 mx-2"> {elem.user.charAt(0)} </div>
-                                <div> {elem.message} </div>
+                            <div className="flex justify-end my-1" key={elem.id}>
+                                <div className="flex items-center p-2 bg-gray-800 text-white rounded-xl">
+                                    <div> {elem.message} </div>
+                                    <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-100 text-gray-800 text-sm"> {elem.user.charAt(0)} </div>
+                                </div>
                             </div>
                             :
-                            <div className="bg-slate-100 flex items-center justify-end my-2" key={elem.id}>
+                            <div className="flex justify-start my-1" key={elem.id}>
+                            <div className="flex items-center p-2 bg-sky-600 text-white rounded-xl">
+                                <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-300 text-gray-800 text-sm"> {elem.user.charAt(0)} </div>
                                 <div> {elem.message} </div>
-                                <div className="border-2 border-black rounded-full flex items-center justify-center w-5 h-5 mx-2"> {elem.user.charAt(0)} </div>
                             </div>
+                        </div>
                     })
                 }
             </div>
+
+            <div className="flex">
+                <div className="flex justify-center grow"> 
+                    <input 
+                        type="text" 
+                        value={message} 
+                        onChange={handleSetMessage}
+                        className="grow rounded-full p-2 bg-sky-200 text-black outline-none"
+                        placeholder="Aa"
+                    />
+                </div>
+                <div className="flex justify-center">
+                    <button 
+                        type="button"
+                        onClick={handleSubmit}
+                        className=" px-4 py-1 cursor-pointer m-2"
+                    >S</button>
+                </div>
+            </div>
             
-            <div className="flex justify-center"> 
-                <input 
-                    type="text" 
-                    value={message} 
-                    onChange={handleSetMessage}
-                    className="border-2 border-black"
-                />
-            </div>
-            <div className="flex justify-center">
-                <button 
-                    type="button"
-                    onClick={handleSubmit}
-                    className="border-2 border-black px-4 py-1 cursor-pointer m-2"
-                >send</button>
-            </div>
         </div>
     )
 }
