@@ -52,16 +52,16 @@ const Chat = () => {
     }
 
     return(
-        <div className="h-screen flex flex-col">
+        <div className="h-screen flex flex-col bg-sky-100">
             <div className="flex justify-between border border-black">
                 <div>logo</div>
                 <div>hamburger</div>
             </div>
             <div className="flex grow">
-                <div className="p-1 grow border border-red-500">
+                <div className="w-4/5 p-1 grow border border-red-500">
                     <MessageBox />
                 </div>
-                <div className="p-1 border border-green-500">
+                <div className="w-1/5 p-1">
                     <UserList users={users} />
                 </div>
             </div>
