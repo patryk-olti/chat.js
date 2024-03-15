@@ -17,14 +17,22 @@ export default function LoginPage() {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        console.log(`credentials: ${login}  ${password}`);
+        authUser();
         setLogin('');
         setPassword('');
     }
 
+    const authUser = async () => {
+        const response = await fetch(`/api/users/auth?login=${login}&password=${password}`);
+        const json = await response.json();
+        const data = json.data;
+
+        console.log(data);
+    }
+
     return (
       <main>
-        <div className="w-1/3 p-10 border-2 border-black">
+        <div className="max-w-2xl p-10 border-2 border-black">
             <form className="flex flex-col justify-center items-center align-middle" onSubmit={handleSubmit}>
                 <input className="w-3/4 m-2 border-2 border-black text-center" type="text" value={login} onChange={handleChangeLogin} placeholder="login" />
                 <input className="w-3/4 m-2 border-2 border-black text-center" type="password" value={password} onChange={hangleChangePassword} placeholder="password" />
