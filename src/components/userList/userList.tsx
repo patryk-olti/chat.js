@@ -1,14 +1,31 @@
+import { useEffect } from 'react';
+import { Types } from 'mongoose';
+
 import SingleUser from "./singleUser";
 
-const UserList = () => {
+type Props = {
+    users: Users[]
+}
+
+type Users = {
+    id: Types.ObjectId,
+    firstName: String,
+    lastName: String
+}
+
+const UserList = (props: Props) => {
+
+    const { users } = props;
+
+    useEffect(() => {
+        console.log('hello', users);
+    })
 
     return(
         <div>
-            <SingleUser name='Patryk Oltuch'/>
-            <SingleUser name='Wiktoria Kozubek'/>
-            <SingleUser name='Adam Nowak'/>
-            <SingleUser name='Konrad Pierwszak'/>
-            <SingleUser name='Otylia Jędrzejczak'/>
+            {
+                users.map(elem => <SingleUser key={elem.id} name={elem.firstName + ' ' + elem.lastName}/>)
+            }
         </div>
     )
 }
