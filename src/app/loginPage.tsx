@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { loginFunc } from "@/lib/auth";
+import { getSession, loginFunc } from "@/lib/auth";
 
 export default function LoginPage() {
 
@@ -18,13 +18,7 @@ export default function LoginPage() {
     }
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async(event) => {
-        event.preventDefault();
-
         await loginFunc(login);
-
-        authUser();
-        setLogin('');
-        setPassword('');
     }
 
     const authUser = async () => {
@@ -45,6 +39,7 @@ export default function LoginPage() {
                 <button className="w-1/2 m-2 text-xs">reset password</button>
             </form>
         </div>
+        {/*<pre>{JSON.stringify(session, null, 2)}</pre>*/}
       </main>
     );
   }

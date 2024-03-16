@@ -29,12 +29,20 @@ export async function loginFunc(login: string){
         login
     };
 
+    console.log('login process');
+
     // Create the session
-    const expires = new Date(Date.now() + 10 * 1000);
+    const expires = new Date(Date.now() + 30 * 1000);
     const session = await encrypt({ user, expires });
 
     // Save the session in a cookie
     cookies().set('session', session, { expires, httpOnly: true })
+}
+
+export async function getSession(){
+    const session = cookies().get('session')?.value;
+    if (!session) return null;
+    return await decrypt(session);
 }
 
 export async function updateSession( request: NextRequest ){
@@ -42,7 +50,7 @@ export async function updateSession( request: NextRequest ){
     if (!session) return;
 
     const parsed = await decrypt(session);
-    parsed.expires = new Date(Date.now() + 10 * 1000);
+    parsed.expires = new Date(Date.now() + 30 * 1000);
     const res = NextResponse.next();
 
     res.cookies.set({
@@ -51,6 +59,6 @@ export async function updateSession( request: NextRequest ){
         httpOnly: true,
         expires: parsed.expires
     });
-    
+
     return res;
 }
