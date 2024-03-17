@@ -22,14 +22,16 @@ export async function decrypt(input: string):Promise<any> {
     return payload;
 }
 
-export async function loginFunc(login: string){
+export async function loginFunc(login: string, password: string){
     // veryfi credentials and get the user
-    // here should be checking credential from db
-    const user = { 
-        login
-    };
+    const response = await fetch(`${process.env.DOMAIN_URL}/api/users/auth?login=${login}&password=${password}`);
+    const json = await response.json();
+    const data = json.data;
 
-    console.log('login process');
+    const user = { 
+        login,
+        password
+    };
 
     // Create the session
     const expires = new Date(Date.now() + 30 * 1000);
