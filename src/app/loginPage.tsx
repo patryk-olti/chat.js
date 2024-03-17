@@ -18,7 +18,13 @@ export default function LoginPage() {
     }
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async(event) => {
-        await loginFunc(login, password);
+        event.preventDefault();
+
+        const logged = await loginFunc(login, password);
+        console.log(logged);
+
+        setLogin('');
+        setPassword('');
     }
 
     const authUser = async () => {

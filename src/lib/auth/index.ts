@@ -25,20 +25,32 @@ export async function decrypt(input: string):Promise<any> {
 export async function loginFunc(login: string, password: string){
     // veryfi credentials and get the user
     const response = await fetch(`${process.env.DOMAIN_URL}/api/users/auth?login=${login}&password=${password}`);
-    const json = await response.json();
-    const data = json.data;
 
-    const user = { 
-        login,
-        password
-    };
+    // everything is ok on the server side
+    if(response.ok){
+        const json = await response.json();
+        const success = await json.success;
+        const data = await json.data;
 
-    // Create the session
-    const expires = new Date(Date.now() + 30 * 1000);
-    const session = await encrypt({ user, expires });
+        if(success){
+            // User found
+            const user = { 
+                login: data.login,
+                password: data.password
+            };
 
-    // Save the session in a cookie
-    cookies().set('session', session, { expires, httpOnly: true })
+            // Create the session
+            const expires = new Date(Date.now() + 30 * 1000);
+            const session = await encrypt({ user, expires });
+
+            // Save the session in a cookie
+            cookies().set('session', session, { expires, httpOnly: true })
+            return true;
+        }else{
+            // User not found
+            return false;
+        }
+    }
 }
 
 export async function getSession(){

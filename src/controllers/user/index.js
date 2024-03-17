@@ -33,10 +33,17 @@ export async function createUser(req, res){
 export async function authUser(req, res){
     try {
         const { login, password } = req.query;
-        console.log(login + " pass: " + password);
 
-        const result = await User.find();
-        res.status(200).json({ success: true, data: result })
+        const result = await User.findOne({
+            login,
+            password
+        });
+
+        if(result){
+            res.status(200).json({ success: true, data: result })
+        }else{
+            res.status(200).json({ success: false, data: 'Invalid login or password!' })
+        }
     }catch (err) {
         res.status(400).json({ success: false})
     }
