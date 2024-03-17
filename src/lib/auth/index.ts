@@ -2,6 +2,7 @@
 
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 const secretKey = process.env.SECRET_KEY
@@ -45,6 +46,7 @@ export async function loginFunc(login: string, password: string){
 
             // Save the session in a cookie
             cookies().set('session', session, { expires, httpOnly: true })
+            redirect('/chat');
             return true;
         }else{
             // User not found
