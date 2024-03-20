@@ -48,8 +48,12 @@ const MessageBox = () => {
         setMessage(event.target.value);
     }
 
-    const handleSetMessageArray = (message: string) => {
+
+    const handleSetMessageArray = (message: any) => {
         let newIndex = messageArray.length;
+        if(sendLike){
+            message = 'YIPPIE-KI-YAY!';
+        }
 
         if(message.length > 0) {
             setMessageArray([
@@ -60,7 +64,9 @@ const MessageBox = () => {
                     message: message,
                     ownerChat: true
                 }
-            ])
+            ]);
+            
+            setSendLike(true);
         }
     }
 
@@ -99,7 +105,7 @@ const MessageBox = () => {
                         type="text" 
                         value={message} 
                         onChange={handleSetMessage}
-                        className="grow rounded-full p-4 bg-sky-200 text-black outline-none"
+                        className="grow rounded-full px-6 bg-sky-200 text-black outline-none"
                         placeholder="Aa"
                     />
                 </div>

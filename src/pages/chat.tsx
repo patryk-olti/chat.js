@@ -6,6 +6,8 @@ import "../app/globals.css";
 import MessageBox from "@/components/chat/messageBox";
 import UserList from "@/components/userList/userList";
 
+import { GiHamburgerMenu } from "react-icons/gi";
+
 type Users = {
     id: Types.ObjectId,
     firstName: String,
@@ -53,9 +55,9 @@ const Chat = () => {
 
     return(
         <div className="h-screen flex flex-col bg-sky-100">
-            <div className="flex justify-between border border-black">
-                <div>logo</div>
-                <div>hamburger</div>
+            <div className="py-2 flex justify-between border border-b-slate-500">
+                <div className="px-2 flex justify-center items-center">chat.js</div>
+                <div className="px-2 flex justify-center items-center cursor-pointer"><GiHamburgerMenu size={30} /></div>
             </div>
             <div className="flex grow">
                 <div className="w-4/5 p-1 grow border">
