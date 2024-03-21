@@ -3,6 +3,8 @@ import { Types } from 'mongoose';
 
 import "../app/globals.css";
 
+import Menu from '../components/menu';
+
 import MessageBox from "@/components/chat/messageBox";
 import UserList from "@/components/userList/userList";
 
@@ -74,13 +76,18 @@ const Chat = () => {
                     }
                 </div>
             </div>
-            <div className="flex grow">
+            <div className="flex grow relative">
                 <div className="w-4/5 p-1 grow border">
                     <MessageBox />
                 </div>
                 <div className="w-1/5 p-1">
                     <UserList users={users} />
                 </div>
+                {
+                    visibleMenu ?
+                    <Menu /> :
+                    null
+                }
             </div>
         </div>
     )
