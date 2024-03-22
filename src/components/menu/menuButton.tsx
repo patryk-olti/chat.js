@@ -1,21 +1,27 @@
 'use client'
 
+import React from 'react';
+
 import "../../app/globals.css";
 
+import { IconType } from "react-icons";
+
+
 type Props = {
-    content: String
+    content: String,
+    icon: IconType
 }
 
 const MenuButton = (props: Props) => {
 
-    const { content } = props;
+    const { content, icon } = props;
 
     return(
         <div 
-            className="flex justify-between p-3 border border-black"    
+            className="flex justify-between items-center p-3 cursor-pointer"    
         > 
-        <div> X </div>
-        <div> {content} </div>
+        <div> {React.createElement(icon, {size: '30' })} </div>
+        <div className='text-xl'> {content} </div>
         </div>
     )
 }
