@@ -64,7 +64,7 @@ const Chat = () => {
     return(
         <div className="h-screen flex flex-col bg-sky-100">
             <div className="py-2 flex justify-between border border-b-slate-500">
-                <div className="px-2 flex justify-center items-center">chat.js</div>
+                <div className="px-2 select-none flex justify-center items-center">chat.js</div>
                 <div 
                     className="px-2 flex justify-center items-center cursor-pointer"
                     onClick={toggleMenu}

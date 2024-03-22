@@ -18,8 +18,8 @@ const Menu = () => {
                 <MenuButton content="settings" icon={IoIosSettings}/>
             </div>
             <div>
-                <div className="p-2 text-center">wyloguj sie</div>
-                <div className="p-2 text-center">chat.js v.0.0.1</div>
+                <div className="p-2 text-center text-xl select-none font-mono rounded-xl cursor-pointer hover:bg-slate-200">logout</div>
+                <div className="p-2 text-center text-xs select-none font-mono">chat.js v.0.0.1</div>
             </div>
             
         </div>
