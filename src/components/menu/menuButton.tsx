@@ -18,7 +18,7 @@ const MenuButton = (props: Props) => {
 
     return(
         <div 
-            className="my-2 flex justify-between items-center p-3 select-none rounded-xl cursor-pointer hover:bg-slate-200"    
+            className="my-2 flex justify-between items-center p-3 select-none rounded-xl cursor-pointer hover:bg-slate-200 active:bg-red-200"    
         > 
         <div> {React.createElement(icon, {size: '30' })} </div>
         <div className='text-xl font-mono'> {content} </div>
