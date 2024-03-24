@@ -3,8 +3,13 @@ import { Types } from 'mongoose';
 
 import "../app/globals.css";
 
+import Menu from '../components/menu';
+
 import MessageBox from "@/components/chat/messageBox";
 import UserList from "@/components/userList/userList";
+
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross1 } from "react-icons/rx";
 
 type Users = {
     id: Types.ObjectId,
@@ -24,6 +29,7 @@ type dataFromFetch = {
 const Chat = () => {
 
     const [ users, setUsers ] = useState<Users[]>([]);
+    const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
 
     useEffect(() => {
         getAllUsers();
@@ -51,19 +57,37 @@ const Chat = () => {
         }
     }
 
+    const toggleMenu = (): void => {
+        setVisibleMenu(prev => prev = !prev);
+    }
+
     return(
         <div className="h-screen flex flex-col bg-sky-100">
-            <div className="flex justify-between border border-black">
-                <div>logo</div>
-                <div>hamburger</div>
+            <div className="py-2 flex justify-between border border-b-slate-500">
+                <div className="px-2 select-none flex justify-center items-center">chat.js</div>
+                <div 
+                    className="px-2 flex justify-center items-center cursor-pointer"
+                    onClick={toggleMenu}
+                >
+                    {
+                        visibleMenu ?
+                        <RxCross1 size={30} /> :
+                        <GiHamburgerMenu size={30} />
+                    }
+                </div>
             </div>
-            <div className="flex grow">
+            <div className="flex grow relative">
                 <div className="w-4/5 p-1 grow border">
                     <MessageBox />
                 </div>
                 <div className="w-1/5 p-1">
                     <UserList users={users} />
                 </div>
+                {
+                    visibleMenu ?
+                    <Menu /> :
+                    null
+                }
             </div>
         </div>
     )

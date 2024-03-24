@@ -4,6 +4,9 @@ import SingleMessage from "./singleMessage";
 
 import "../../app/globals.css";
 
+import { IoIosSend } from "react-icons/io";
+import { AiFillLike } from "react-icons/ai";
+
 type MessageArray = {
     id: number,
     user: string,
@@ -13,6 +16,7 @@ type MessageArray = {
 
 const MessageBox = () => {
 
+    const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
     const [ messageArray, setMessageArray ] = useState<MessageArray[]>([
         {
@@ -36,11 +40,20 @@ const MessageBox = () => {
     ]);
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        if(event.target.value.length > 0){
+            setSendLike(false);
+        }else{
+            setSendLike(true);
+        }
         setMessage(event.target.value);
     }
 
-    const handleSetMessageArray = (message: string) => {
+
+    const handleSetMessageArray = (message: any) => {
         let newIndex = messageArray.length;
+        if(sendLike){
+            message = 'YIPPIE-KI-YAY!';
+        }
 
         if(message.length > 0) {
             setMessageArray([
@@ -51,7 +64,9 @@ const MessageBox = () => {
                     message: message,
                     ownerChat: true
                 }
-            ])
+            ]);
+            
+            setSendLike(true);
         }
     }
 
@@ -90,7 +105,7 @@ const MessageBox = () => {
                         type="text" 
                         value={message} 
                         onChange={handleSetMessage}
-                        className="grow rounded-full p-2 bg-sky-200 text-black outline-none"
+                        className="grow rounded-full px-6 bg-sky-200 text-black outline-none"
                         placeholder="Aa"
                     />
                 </div>
@@ -99,7 +114,9 @@ const MessageBox = () => {
                         type="button"
                         onClick={handleSubmit}
                         className=" px-4 py-1 cursor-pointer m-2"
-                    >S</button>
+                    >
+                        { sendLike ? <AiFillLike size={30} /> : <IoIosSend size={30}/> }
+                    </button>
                 </div>
             </div>
             
