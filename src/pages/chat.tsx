@@ -12,7 +12,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
 type Users = {
-    id: Types.ObjectId,
+    _id: Types.ObjectId,
     firstName: String,
     lastName: String
 }
@@ -47,7 +47,7 @@ const Chat = () => {
 
             data.map((elem: dataFromFetch) => {
                 tempArray.push({
-                    id: elem._id,
+                    _id: elem._id,
                     firstName: elem.firstName,
                     lastName: elem.lastName
                 })

@@ -8,7 +8,7 @@ type Props = {
 }
 
 type Users = {
-    id: Types.ObjectId,
+    _id: Types.ObjectId,
     firstName: String,
     lastName: String
 }
@@ -20,7 +20,7 @@ const UserList = (props: Props) => {
     return(
         <div>
             {
-                users.map(elem => <SingleUser key={elem.id} data={elem} />)
+                users.map(elem => <SingleUser key={elem._id} data={elem} />)
             }
         </div>
     )
