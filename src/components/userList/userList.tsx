@@ -17,14 +17,10 @@ const UserList = (props: Props) => {
 
     const { users } = props;
 
-    useEffect(() => {
-        console.log('hello', users);
-    })
-
     return(
         <div>
             {
-                users.map(elem => <SingleUser key={elem.id} name={elem.firstName + ' ' + elem.lastName}/>)
+                users.map(elem => <SingleUser key={elem.id} data={elem} />)
             }
         </div>
     )
