@@ -23,3 +23,12 @@ export async function createConnection(req, res){
         return res.status(400).json({ success: false })
     }
 }
+
+export async function getConnectionForSingleUser(req, res){
+    try{
+        // prepare bofy of function
+        return res.status(201).json({ success: true, data: 'hello'})
+    }catch(err){
+        return res.status(400).json({ success: false });
+    }
+}
