@@ -42,7 +42,7 @@ const SingleUser = (props: Props) => {
             });
 
             if(chatRoomId){
-                sendMessage(chatRoomId);
+                sendMessage(chatRoomId, userId._id, 'Hello Joe!');
             }
 
             

@@ -117,6 +117,24 @@ export async function getConnection(props: Props){
     }
 }
 
-export async function sendMessage(chatRoomId: Types.ObjectId){
-    console.log('sendMessage: ' + chatRoomId);
+export async function sendMessage(chatRoomId: Types.ObjectId, firstUserId: Types.ObjectId, content: string){
+    
+    const response = await fetch('/api/message', {
+        method: 'POST',
+        body: JSON.stringify({
+            idUser: firstUserId,
+            idChatroom: chatRoomId,
+            content
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    const result = await response.json();
+    const success = await result.success;
+
+    if(success) {
+        const data = await result.data;
+        console.log(data);
+    }
 }
