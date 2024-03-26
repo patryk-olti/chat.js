@@ -1,7 +1,7 @@
 import "../../app/globals.css";
 import { Key } from "react";
 import { Types } from 'mongoose';
-import { getConnection } from "@/lib/chat";
+import { getConnection, sendMessage } from "@/lib/chat";
 import { useState, useEffect } from "react";
 
 type Users = {
@@ -34,12 +34,19 @@ const SingleUser = (props: Props) => {
         console.log(data);
     }
 
-    const handleClick = () => {
+    const handleClick = async() => {
         if(userId){
-            getConnection({
+            const chatRoomId = await getConnection({
                 firstUserId: userId._id,
                 secondUserId: data._id
             });
+
+            if(chatRoomId){
+                sendMessage(chatRoomId);
+            }
+
+            
+
         }
     }
 

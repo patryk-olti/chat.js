@@ -44,6 +44,7 @@ export async function getConnection(props: Props){
     })
 
     console.log(commonChatId);
+
     // if not exist create new chat room for user which initialized
     if(commonChatId.length === 0){
         response = await fetch('/api/chatroom', {
@@ -62,7 +63,8 @@ export async function getConnection(props: Props){
         // if chat room was created then create two connection to one chat room
         if(success){
             data = await result.data;
-            const chatRoomId = await data._id;
+            const chatRoomId: Types.ObjectId = await data._id;
+            console.log('chat room id connection: ' + chatRoomId);
 
             // create connection to chat room
             response = await fetch('/api/connection', {
@@ -79,6 +81,11 @@ export async function getConnection(props: Props){
             success = await result.success;
             if(!success){
                 console.error('Failed to create connection...');
+            }
+            if(success){
+                const data = await result.data;
+                const resultId = await data._id;
+                console.log('first user id connection: ' + resultId);
             }
 
             // create another one connection to chat room
@@ -97,9 +104,19 @@ export async function getConnection(props: Props){
             if(!success){
                 console.error('Failed to create connection...');
             }
+            if(success){
+                const data = await result.data;
+                const resultId = await data._id;
+                console.log('second user id connection: ' + resultId);
+            }
             
+            return chatRoomId;
         }
+    }else{
+        return commonChatId[0];
     }
+}
 
-    // send message by one user to correct chatroom
+export async function sendMessage(chatRoomId: Types.ObjectId){
+    console.log('sendMessage: ' + chatRoomId);
 }
