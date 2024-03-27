@@ -147,6 +147,8 @@ export async function getMessage(chatRoomId: Types.ObjectId){
 
     if(success) {
         const data = await result.data;
-        console.log(data);
+        return data;
+    }else{
+        return [];
     }
 }

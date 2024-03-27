@@ -26,14 +26,23 @@ type dataFromFetch = {
     email: String
 }
 
+type Message = {
+    _id: Types.ObjectId,
+    idUser: Types.ObjectId,
+    idChatroom: Types.ObjectId,
+    content: string,
+    createdAt: Date
+}
+
 const Chat = () => {
 
     const [ users, setUsers ] = useState<Users[]>([]);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
+    const [ messageArray, setMessageArray ] = useState<Message[]>([]);
 
     useEffect(() => {
         getAllUsers();
-    }, []);
+    }, [users]);
 
     const getAllUsers = async() => {
         const res = await fetch('/api/users');
@@ -78,10 +87,10 @@ const Chat = () => {
             </div>
             <div className="flex grow relative">
                 <div className="w-4/5 p-1 grow border">
-                    <MessageBox />
+                    <MessageBox messageArray={messageArray} />
                 </div>
                 <div className="w-1/5 p-1">
-                    <UserList users={users} />
+                    <UserList users={users} setMessageArray={setMessageArray} />
                 </div>
                 {
                     visibleMenu ?

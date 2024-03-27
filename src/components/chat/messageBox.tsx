@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Types } from 'mongoose';
 
 import SingleMessage from "./singleMessage";
 
@@ -7,6 +8,18 @@ import "../../app/globals.css";
 import { IoIosSend } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
 
+type Props = {
+    messageArray: Message[]
+}
+
+type Message = {
+    _id: Types.ObjectId,
+    idUser: Types.ObjectId,
+    idChatroom: Types.ObjectId,
+    content: string,
+    createdAt: Date
+}
+
 type MessageArray = {
     id: number,
     user: string,
@@ -14,7 +27,7 @@ type MessageArray = {
     ownerChat: boolean
 }
 
-const MessageBox = () => {
+const MessageBox = (props: Props) => {
 
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');

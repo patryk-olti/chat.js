@@ -4,7 +4,8 @@ import { Types } from 'mongoose';
 import SingleUser from "./singleUser";
 
 type Props = {
-    users: Users[]
+    users: Users[],
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
 }
 
 type Users = {
@@ -13,14 +14,22 @@ type Users = {
     lastName: String
 }
 
+type MessageArray = {
+    _id: Types.ObjectId,
+    idUser: Types.ObjectId,
+    idChatroom: Types.ObjectId,
+    content: string,
+    createdAt: Date
+}
+
 const UserList = (props: Props) => {
 
-    const { users } = props;
+    const { users, setMessageArray } = props;
 
     return(
         <div>
             {
-                users.map(elem => <SingleUser key={elem._id} data={elem} />)
+                users.map(elem => <SingleUser key={elem._id} data={elem} setMessageArray={setMessageArray} />)
             }
         </div>
     )

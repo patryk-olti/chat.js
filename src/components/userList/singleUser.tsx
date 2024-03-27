@@ -4,20 +4,29 @@ import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
 import { useState, useEffect } from "react";
 
+type Props = {
+    key: Key,
+    data: Users,
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
+}
+
 type Users = {
     _id: Types.ObjectId,
     firstName: String,
     lastName: String
 }
 
-type Props = {
-    key: Key,
-    data: Users
+type MessageArray = {
+    _id: Types.ObjectId,
+    idUser: Types.ObjectId,
+    idChatroom: Types.ObjectId,
+    content: string,
+    createdAt: Date
 }
 
 const SingleUser = (props: Props) => {
 
-    const { data } = props;
+    const { data, setMessageArray } = props;
 
     const [ userId, setUserId] = useState<Users | undefined>();
 
@@ -42,7 +51,8 @@ const SingleUser = (props: Props) => {
             });
 
             if(chatRoomId){
-                getMessage(chatRoomId);
+                const messageArray = await getMessage(chatRoomId);
+                setMessageArray(messageArray);
                 //sendMessage(chatRoomId, userId._id, 'Hello Joe!');
             }
 
