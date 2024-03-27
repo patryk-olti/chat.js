@@ -138,3 +138,15 @@ export async function sendMessage(chatRoomId: Types.ObjectId, firstUserId: Types
         console.log(data);
     }
 }
+
+export async function getMessage(chatRoomId: Types.ObjectId){
+    
+    const response = await fetch(`/api/message?idChatroom=${chatRoomId}`);
+    const result = await response.json();
+    const success = await result.success;
+
+    if(success) {
+        const data = await result.data;
+        console.log(data);
+    }
+}

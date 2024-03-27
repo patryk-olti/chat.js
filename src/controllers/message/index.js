@@ -2,8 +2,19 @@ import Message from '../../models/message';
 
 export async function getMessage(req, res){
     try {
-        const result = await Message.find()
-        res.status(200).json({ success: true, data: result })
+        const { idChatroom } = req.query;
+
+        if(idChatroom){
+            // get all messages from one chatroom
+            const result = await Message.find({
+                idChatroom
+            });
+            res.status(200).json({ success: true, data: result })
+        }else{
+            const result = await Message.find()
+            res.status(200).json({ success: true, data: result })
+        }
+        
     }catch (err) {
         res.status(400).json({ success: false})
     }

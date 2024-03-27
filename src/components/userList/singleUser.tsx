@@ -1,7 +1,7 @@
 import "../../app/globals.css";
 import { Key } from "react";
 import { Types } from 'mongoose';
-import { getConnection, sendMessage } from "@/lib/chat";
+import { getConnection, sendMessage, getMessage } from "@/lib/chat";
 import { useState, useEffect } from "react";
 
 type Users = {
@@ -42,7 +42,8 @@ const SingleUser = (props: Props) => {
             });
 
             if(chatRoomId){
-                sendMessage(chatRoomId, userId._id, 'Hello Joe!');
+                getMessage(chatRoomId);
+                //sendMessage(chatRoomId, userId._id, 'Hello Joe!');
             }
 
             
