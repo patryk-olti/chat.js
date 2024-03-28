@@ -11,32 +11,11 @@ import UserList from "@/components/userList/userList";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
-type Users = {
-    _id: Types.ObjectId,
-    firstName: String,
-    lastName: String
-}
-
-type dataFromFetch = {
-    _id: Types.ObjectId,
-    firstName: String,
-    lastName: String,
-    login: String,
-    password: String,
-    email: String
-}
-
-type Message = {
-    _id: Types.ObjectId,
-    idUser: Types.ObjectId,
-    idChatroom: Types.ObjectId,
-    content: string,
-    createdAt: Date
-}
+import { Message, UserFromDatabase, User } from "@/lib/types";
 
 const Chat = () => {
 
-    const [ users, setUsers ] = useState<Users[]>([]);
+    const [ users, setUsers ] = useState<User[]>([]);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
     const [ messageArray, setMessageArray ] = useState<Message[]>([]);
 
@@ -52,9 +31,9 @@ const Chat = () => {
             const json = await res.json();
             const data = json.data;
             
-            let tempArray: Users[] = [];
+            let tempArray: User[] = [];
 
-            data.map((elem: dataFromFetch) => {
+            data.map((elem: UserFromDatabase) => {
                 tempArray.push({
                     _id: elem._id,
                     firstName: elem.firstName,

@@ -4,31 +4,19 @@ import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
 import { useState, useEffect } from "react";
 
+import { MessageArray, User } from "@/lib/types";
+
 type Props = {
     key: Key,
-    data: Users,
+    data: User,
     setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
-}
-
-type Users = {
-    _id: Types.ObjectId,
-    firstName: String,
-    lastName: String
-}
-
-type MessageArray = {
-    _id: Types.ObjectId,
-    idUser: Types.ObjectId,
-    idChatroom: Types.ObjectId,
-    content: string,
-    createdAt: Date
 }
 
 const SingleUser = (props: Props) => {
 
     const { data, setMessageArray } = props;
 
-    const [ userId, setUserId] = useState<Users | undefined>();
+    const [ userId, setUserId] = useState<User | undefined>();
 
     useEffect(() => {
         getUser();

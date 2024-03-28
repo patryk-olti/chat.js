@@ -8,16 +8,10 @@ import "../../app/globals.css";
 import { IoIosSend } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
 
+import { Message } from "@/lib/types";
+
 type Props = {
     messageArray: Message[]
-}
-
-type Message = {
-    _id: Types.ObjectId,
-    idUser: Types.ObjectId,
-    idChatroom: Types.ObjectId,
-    content: string,
-    createdAt: Date
 }
 
 type MessageArray = {

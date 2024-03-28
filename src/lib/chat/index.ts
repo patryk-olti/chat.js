@@ -1,14 +1,10 @@
 import { Types } from 'mongoose';
 
+import { Connection } from '../types';
+
 interface Props{
     firstUserId: Types.ObjectId,
     secondUserId: Types.ObjectId
-}
-
-interface Connection{
-    _id: Types.ObjectId,
-    idChatroom: Types.ObjectId,
-    idUser: Types.ObjectId
 }
 
 export async function getConnection(props: Props){
