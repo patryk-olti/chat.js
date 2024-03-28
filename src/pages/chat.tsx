@@ -66,7 +66,7 @@ const Chat = () => {
             </div>
             <div className="flex grow relative">
                 <div className="w-4/5 p-1 grow border">
-                    <MessageBox messageArray={messageArray} />
+                    <MessageBox messageArray={messageArray} setMessageArray={setMessageArray} />
                 </div>
                 <div className="w-1/5 p-1">
                     <UserList users={users} setMessageArray={setMessageArray} />

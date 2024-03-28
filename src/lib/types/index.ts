@@ -8,6 +8,13 @@ export type Message = {
     createdAt: Date
 }
 
+export type MessageToUI = {
+    id: number,
+    user: string,
+    content: string,
+    ownerChat: boolean
+}
+
 export type MessageArray = {
     _id: Types.ObjectId,
     idUser: Types.ObjectId,

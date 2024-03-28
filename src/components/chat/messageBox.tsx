@@ -11,11 +11,11 @@ import { AiFillLike } from "react-icons/ai";
 import { Message } from "@/lib/types";
 
 type Props = {
-    messageArray: Message[]
+    messageArray: Message[],
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
 }
 
 type MessageArray = {
-    id: number,
     user: string,
     message: string,
     ownerChat: boolean
@@ -25,26 +25,7 @@ const MessageBox = (props: Props) => {
 
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
-    const [ messageArray, setMessageArray ] = useState<MessageArray[]>([
-        {
-            id: 1,
-            user: 'Patryk',
-            message: 'Hello',
-            ownerChat: true
-        },
-        {
-            id: 2,
-            user: 'Marcin',
-            message: 'Hi how are you?',
-            ownerChat: false
-        },
-        {
-            id: 3,
-            user: 'Patryk',
-            message: 'Thanks and you?',
-            ownerChat: true
-        }
-    ]);
+    const [ messageArrayState, setMessageArrayState ] = useState<MessageArray[]>([]);
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
@@ -57,16 +38,15 @@ const MessageBox = (props: Props) => {
 
 
     const handleSetMessageArray = (message: any) => {
-        let newIndex = messageArray.length;
         if(sendLike){
             message = 'YIPPIE-KI-YAY!';
         }
 
         if(message.length > 0) {
-            setMessageArray([
-                ...messageArray,
+            setMessageArrayState([
+                ...messageArrayState,
                 {
-                    id: newIndex+1,
+
                     user: 'Patryk',
                     message: message,
                     ownerChat: true
@@ -86,7 +66,7 @@ const MessageBox = (props: Props) => {
         <div className="h-full flex flex-col justify-end p-2">
 
             <div className="grow">
-                {
+                {/*
                     messageArray.map((elem) => {
                         return elem.ownerChat ?
                             <div className="flex justify-end my-1" key={elem.id}>
@@ -102,8 +82,11 @@ const MessageBox = (props: Props) => {
                                 <div> {elem.message} </div>
                             </div>
                         </div>
-                    })
+                    })*/
                 }
+                <div className="flex justify-center items-center h-full text-slate-400 select-none">
+                    select the person you want to chat with
+                </div>
             </div>
 
             <div className="flex">

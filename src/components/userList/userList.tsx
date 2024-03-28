@@ -5,6 +5,9 @@ import SingleUser from "./singleUser";
 
 import { User, MessageArray } from '@/lib/types';
 
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 type Props = {
     users: User[],
     setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
@@ -15,9 +18,13 @@ const UserList = (props: Props) => {
     const { users, setMessageArray } = props;
 
     return(
-        <div>
+        <div className='h-full'>
             {
-                users.map(elem => <SingleUser key={elem._id} data={elem} setMessageArray={setMessageArray} />)
+                users.length > 0 ?
+                    users.map(elem => <SingleUser key={elem._id} data={elem} setMessageArray={setMessageArray} />) :
+                    <Box className='flex h-full items-center justify-center'>
+                        <CircularProgress />
+                    </Box>
             }
         </div>
     )

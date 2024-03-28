@@ -131,7 +131,6 @@ export async function sendMessage(chatRoomId: Types.ObjectId, firstUserId: Types
 
     if(success) {
         const data = await result.data;
-        console.log(data);
     }
 }
 
