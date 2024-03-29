@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 
 import { loginFunc } from "@/lib/auth";
 
@@ -13,6 +14,8 @@ export default function LoginPage() {
     const [ loginMessage, setLoginMessage ] = useState<string>('');
 
     const { setUserId, setUserFullName } = useContext(AppContext);
+
+    const router = useRouter();
 
     const handleChangeLogin: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setLogin(event.target.value);
@@ -31,6 +34,8 @@ export default function LoginPage() {
             // save data to global context
             setUserId(user._id);
             setUserFullName(user.firstName + ' ' + user.lastName);
+
+            router.push('/chat');
         }
 
         setLogin('');
