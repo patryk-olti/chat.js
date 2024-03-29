@@ -1,9 +1,15 @@
+'use client';
+
 import LoginPage from "./loginPage";
+
+import AppProvider from '../lib/context';
 
 export default function Home() {
   return (
     <main>
-      <LoginPage />
+      <AppProvider>
+          <LoginPage />
+      </AppProvider>
     </main>
   );
 }
