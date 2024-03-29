@@ -8,24 +8,19 @@ import "../../app/globals.css";
 import { IoIosSend } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
 
-import { Message } from "@/lib/types";
+import { MessageToUI } from "@/lib/types";
 
 type Props = {
-    messageArray: Message[],
-    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
-}
-
-type MessageArray = {
-    user: string,
-    message: string,
-    ownerChat: boolean
+    messageArray: MessageToUI[],
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
 }
 
 const MessageBox = (props: Props) => {
 
+    const { messageArray, setMessageArray } = props;
+
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
-    const [ messageArrayState, setMessageArrayState ] = useState<MessageArray[]>([]);
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
@@ -43,12 +38,12 @@ const MessageBox = (props: Props) => {
         }
 
         if(message.length > 0) {
-            setMessageArrayState([
-                ...messageArrayState,
+            setMessageArray([
+                ...messageArray,
                 {
-
+                    id: 1,
                     user: 'Patryk',
-                    message: message,
+                    content: message,
                     ownerChat: true
                 }
             ]);
@@ -66,27 +61,29 @@ const MessageBox = (props: Props) => {
         <div className="h-full flex flex-col justify-end p-2">
 
             <div className="grow">
-                {/*
-                    messageArray.map((elem) => {
-                        return elem.ownerChat ?
-                            <div className="flex justify-end my-1" key={elem.id}>
-                                <div className="flex items-center p-2 bg-gray-800 text-white rounded-xl">
-                                    <div> {elem.message} </div>
-                                    <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-100 text-gray-800 text-sm"> {elem.user.charAt(0)} </div>
+                {
+                    messageArray.length > 0 ? (
+                        messageArray.map((elem) => {
+                            return elem.ownerChat ?
+                                <div className="flex justify-end my-1" key={elem.id}>
+                                    <div className="flex items-center p-2 bg-gray-800 text-white rounded-xl">
+                                        <div> {elem.content} </div>
+                                        <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-100 text-gray-800 text-sm"> P {/*elem.user.charAt(0)*/} </div>
+                                    </div>
+                                </div>
+                                :
+                                <div className="flex justify-start my-1" key={elem.id}>
+                                <div className="flex items-center p-2 bg-sky-600 text-white rounded-xl">
+                                    <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-300 text-gray-800 text-sm"> O {/*elem.user.charAt(0)*/} </div>
+                                    <div> {elem.content} </div>
                                 </div>
                             </div>
-                            :
-                            <div className="flex justify-start my-1" key={elem.id}>
-                            <div className="flex items-center p-2 bg-sky-600 text-white rounded-xl">
-                                <div className="rounded-full flex items-center justify-center w-5 h-5 m-1 bg-sky-300 text-gray-800 text-sm"> {elem.user.charAt(0)} </div>
-                                <div> {elem.message} </div>
-                            </div>
+                        }))
+                        :
+                        <div className="flex justify-center items-center h-full text-slate-400 select-none">
+                            select the person you want to chat with
                         </div>
-                    })*/
                 }
-                <div className="flex justify-center items-center h-full text-slate-400 select-none">
-                    select the person you want to chat with
-                </div>
             </div>
 
             <div className="flex">

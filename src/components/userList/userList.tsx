@@ -3,14 +3,14 @@ import { Types } from 'mongoose';
 
 import SingleUser from "./singleUser";
 
-import { User, MessageArray } from '@/lib/types';
+import { User, MessageToUI } from '@/lib/types';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 type Props = {
     users: User[],
-    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
 }
 
 const UserList = (props: Props) => {

@@ -4,12 +4,12 @@ import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
 import { useState, useEffect } from "react";
 
-import { MessageArray, User } from "@/lib/types";
+import { MessageToUI, User } from "@/lib/types";
 
 type Props = {
     key: Key,
     data: User,
-    setMessageArray: React.Dispatch<React.SetStateAction<MessageArray[]>>
+    setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
 }
 
 const SingleUser = (props: Props) => {

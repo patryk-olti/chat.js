@@ -11,13 +11,13 @@ import UserList from "@/components/userList/userList";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
-import { Message, UserFromDatabase, User } from "@/lib/types";
+import { MessageToUI, UserFromDatabase, User } from "@/lib/types";
 
 const Chat = () => {
 
     const [ users, setUsers ] = useState<User[]>([]);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
-    const [ messageArray, setMessageArray ] = useState<Message[]>([]);
+    const [ messageArray, setMessageArray ] = useState<MessageToUI[]>([]);
 
     useEffect(() => {
         getAllUsers();
