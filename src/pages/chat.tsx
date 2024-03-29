@@ -1,9 +1,6 @@
 'use client'
 
 import { useState, useEffect, useContext } from "react";
-import { Types } from 'mongoose';
-
-import { AppContext } from "@/lib/context";
 
 import "../app/globals.css";
 
@@ -19,15 +16,13 @@ import { MessageToUI, UserFromDatabase, User } from "@/lib/types";
 
 const Chat = () => {
 
-    const { userId } = useContext<Types.ObjectId | undefined>(AppContext)!;
-
     const [ users, setUsers ] = useState<User[]>([]);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
     const [ messageArray, setMessageArray ] = useState<MessageToUI[]>([]);
 
     useEffect(() => {
         getAllUsers();
-    }, [users]);
+    }, []);
 
     const getAllUsers = async() => {
         const res = await fetch('/api/users');
@@ -46,8 +41,6 @@ const Chat = () => {
                     lastName: elem.lastName
                 })
             })
-
-            console.log(userId);
 
             setUsers(tempArray);
         }

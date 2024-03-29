@@ -2,9 +2,11 @@ import "../../app/globals.css";
 import { Key } from "react";
 import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { MessageToUI, User } from "@/lib/types";
+
+import { AppContext } from "@/lib/context";
 
 type Props = {
     key: Key,
@@ -18,6 +20,8 @@ const SingleUser = (props: Props) => {
 
     const [ userId, setUserId] = useState<User | undefined>();
 
+    const { setSelectedChatId } = useContext(AppContext);
+
     useEffect(() => {
         getUser();
     }, []);
@@ -28,7 +32,6 @@ const SingleUser = (props: Props) => {
         const data = await json.data;
 
         setUserId(data);
-        console.log(data);
     }
 
     const handleClick = async() => {
@@ -41,6 +44,7 @@ const SingleUser = (props: Props) => {
             if(chatRoomId){
                 const messageArray = await getMessage(chatRoomId);
                 setMessageArray(messageArray);
+                setSelectedChatId(chatRoomId);
                 //sendMessage(chatRoomId, userId._id, 'Hello Joe!');
             }
 
