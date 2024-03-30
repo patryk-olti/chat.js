@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import "../../app/globals.css";
+import "../../globals.css";
 
 import { IconType } from "react-icons";
 

@@ -1,6 +1,6 @@
 'use client'
 
-import "../../app/globals.css";
+import "../../globals.css";
 
 import MenuButton from "./menuButton";
 

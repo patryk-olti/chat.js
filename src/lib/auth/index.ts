@@ -47,8 +47,12 @@ export async function loginFunc(login: string, password: string){
 
             // Save the session in a cookie
             cookies().set('session', session, { expires, httpOnly: true })
-            redirect('/chat');
-            return true;
+            //redirect('/chat');
+            return {
+                _id: data._id,
+                firstName: data.firstName,
+                lastName: data.lastName
+            }
         }else{
             // User not found
             return false;

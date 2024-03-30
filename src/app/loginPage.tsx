@@ -1,14 +1,21 @@
-"use client"
+'use client'
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 
 import { loginFunc } from "@/lib/auth";
+
+import { AppContext } from "@/app/context";
 
 export default function LoginPage() {
 
     const [ login, setLogin ] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
     const [ loginMessage, setLoginMessage ] = useState<string>('');
+
+    const { setUserId, setUserFullName } = useContext(AppContext);
+
+    const router = useRouter();
 
     const handleChangeLogin: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         setLogin(event.target.value);
@@ -20,9 +27,15 @@ export default function LoginPage() {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = async(event) => {
         event.preventDefault();
-        const logged = await loginFunc(login, password);
-        if(!logged){
+        const user = await loginFunc(login, password);
+        if(!user){
             setLoginMessage('incorrect login or password')
+        }else{
+            // save data to global context
+            setUserId(user._id);
+            setUserFullName(user.firstName + ' ' + user.lastName);
+
+            router.push('/chat');
         }
 
         setLogin('');

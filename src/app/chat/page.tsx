@@ -1,17 +1,20 @@
-import { useState, useEffect } from "react";
-import { Types } from 'mongoose';
+'use client'
 
-import "../app/globals.css";
+import { useState, useEffect, useContext } from "react";
 
-import Menu from '../components/menu';
+import "../globals.css"
 
-import MessageBox from "@/components/chat/messageBox";
-import UserList from "@/components/userList/userList";
+import Menu from '../components/menu'
+
+import MessageBox from "@/app/components/chat/messageBox";
+import UserList from "@/app/components/userList/userList";
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
 import { MessageToUI, UserFromDatabase, User } from "@/lib/types";
+
+import { AppContext } from "../context";
 
 const Chat = () => {
 
@@ -19,9 +22,13 @@ const Chat = () => {
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
     const [ messageArray, setMessageArray ] = useState<MessageToUI[]>([]);
 
+    const { userId } = useContext(AppContext);
+
     useEffect(() => {
         getAllUsers();
-    }, [users]);
+
+        console.log('user id: ' + userId);
+    }, []);
 
     const getAllUsers = async() => {
         const res = await fetch('/api/users');

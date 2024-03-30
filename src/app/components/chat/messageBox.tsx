@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Types } from 'mongoose';
 
 import SingleMessage from "./singleMessage";
 
-import "../../app/globals.css";
+import "../../globals.css"
 
 import { IoIosSend } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
 
 import { MessageToUI } from "@/lib/types";
+
+import { AppContext } from "@/app/context";
 
 type Props = {
     messageArray: MessageToUI[],
@@ -21,6 +23,8 @@ const MessageBox = (props: Props) => {
 
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
+
+    const { userId, selectedChatId } = useContext(AppContext);
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
@@ -50,6 +54,9 @@ const MessageBox = (props: Props) => {
             
             setSendLike(true);
         }
+
+        // check context -> post to db
+        console.log('contex -> userId: ' + userId + ' selectedChatId: ' + selectedChatId);
     }
 
     const handleSubmit = () => {
