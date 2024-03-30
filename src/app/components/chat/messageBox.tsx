@@ -36,7 +36,7 @@ const MessageBox = (props: Props) => {
     }
 
 
-    const handleSetMessageArray = (message: any) => {
+    const handleSetMessageArray = async(message: any) => {
         if(sendLike){
             message = 'YIPPIE-KI-YAY!';
         }
@@ -55,8 +55,21 @@ const MessageBox = (props: Props) => {
             setSendLike(true);
         }
 
-        // check context -> post to db
-        console.log('contex -> userId: ' + userId + ' selectedChatId: ' + selectedChatId);
+        const response = await fetch('/api/message', {
+            method: 'POST',
+            body: JSON.stringify({
+                idUser: userId,
+                idChatroom: selectedChatId,
+                content: message
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        let result = await response.json();
+        let success = await result.success;
+
+        console.log(success);
     }
 
     const handleSubmit = () => {
