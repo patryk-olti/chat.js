@@ -4,13 +4,14 @@ import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
 import { useState, useEffect, useContext } from "react";
 
-import { MessageToUI, User } from "@/lib/types";
+import { Message, MessageToUI, User } from "@/lib/types";
 
 import { AppContext } from "@/app/context";
 
 type Props = {
     key: Key,
     data: User,
+    messageArray: MessageToUI[],
     setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
 }
 
@@ -18,9 +19,9 @@ const SingleUser = (props: Props) => {
 
     const { data, setMessageArray } = props;
 
-    const [ userId, setUserId] = useState<User | undefined>();
+    const [ userIdState, setUserIdState ] = useState<User | undefined>();
 
-    const { setSelectedChatId } = useContext(AppContext);
+    const { userId, setSelectedChatId } = useContext(AppContext);
 
     useEffect(() => {
         getUser();
@@ -31,25 +32,44 @@ const SingleUser = (props: Props) => {
         const json = await response.json();
         const data = await json.data;
 
-        setUserId(data);
+        setUserIdState(data);
     }
 
     const handleClick = async() => {
-        if(userId){
+        if(userIdState){
             const chatRoomId = await getConnection({
-                firstUserId: userId._id,
+                firstUserId: userIdState._id,
                 secondUserId: data._id
             });
 
             if(chatRoomId){
-                const messageArray = await getMessage(chatRoomId);
-                setMessageArray(messageArray);
+                const messageArray: Message = await getMessage(chatRoomId);
+                
+                const tempMessageArray: MessageToUI[] = [];
+
+                messageArray.map( (elem: Message, index: Number) => {
+                    if(elem.idUser === userId){
+                        tempMessageArray.push(
+                            {
+                                id: Number(index),
+                                user: 'Patryk',
+                                content: elem.content,
+                                ownerChat: true
+                            });
+                    }else{
+                        tempMessageArray.push(
+                            {
+                                id: Number(index),
+                                user: 'Inny',
+                                content: elem.content,
+                                ownerChat: false
+                        });
+                    }
+                })
+
+                setMessageArray(tempMessageArray);
                 setSelectedChatId(chatRoomId);
-                //sendMessage(chatRoomId, userId._id, 'Hello Joe!');
             }
-
-            
-
         }
     }
 

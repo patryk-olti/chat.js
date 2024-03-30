@@ -74,7 +74,10 @@ const Chat = () => {
                     <MessageBox messageArray={messageArray} setMessageArray={setMessageArray} />
                 </div>
                 <div className="w-1/5 p-1">
-                    <UserList users={users} setMessageArray={setMessageArray} />
+                    <UserList 
+                        users={users} 
+                        messageArray={messageArray}
+                        setMessageArray={setMessageArray} />
                 </div>
                 {
                     visibleMenu ?

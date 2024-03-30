@@ -10,18 +10,19 @@ import Box from '@mui/material/Box';
 
 type Props = {
     users: User[],
+    messageArray: MessageToUI[],
     setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
 }
 
 const UserList = (props: Props) => {
 
-    const { users, setMessageArray } = props;
+    const { users, messageArray, setMessageArray } = props;
 
     return(
         <div className='h-full'>
             {
                 users.length > 0 ?
-                    users.map(elem => <SingleUser key={elem._id} data={elem} setMessageArray={setMessageArray} />) :
+                    users.map(elem => <SingleUser key={elem._id} data={elem} messageArray={messageArray} setMessageArray={setMessageArray} />) :
                     <Box className='flex h-full items-center justify-center'>
                         <CircularProgress />
                     </Box>
