@@ -1,6 +1,6 @@
 'use client';
 
-import LoginPage from "./loginPage";
+import LoginPage from "./components/loginPage";
 
 export default function Home() {
   return (

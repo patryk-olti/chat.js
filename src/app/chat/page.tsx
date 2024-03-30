@@ -26,8 +26,6 @@ const Chat = () => {
 
     useEffect(() => {
         getAllUsers();
-
-        console.log('user id: ' + userId);
     }, []);
 
     const getAllUsers = async() => {
