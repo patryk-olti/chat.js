@@ -3,14 +3,14 @@ import { Types } from 'mongoose';
 
 import SingleMessage from "./singleMessage";
 
-import "../../app/globals.css";
+import "../../globals.css"
 
 import { IoIosSend } from "react-icons/io";
 import { AiFillLike } from "react-icons/ai";
 
 import { MessageToUI } from "@/lib/types";
 
-import { AppContext } from "@/lib/context";
+import { AppContext } from "@/app/context";
 
 type Props = {
     messageArray: MessageToUI[],

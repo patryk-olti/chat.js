@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { loginFunc } from "@/lib/auth";
 
-import { AppContext } from "@/lib/context";
+import { AppContext } from "@/app/context";
 
 export default function LoginPage() {
 

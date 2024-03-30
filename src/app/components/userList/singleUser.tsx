@@ -1,4 +1,4 @@
-import "../../app/globals.css";
+import "../../globals.css";
 import { Key } from "react";
 import { Types } from 'mongoose';
 import { getConnection, sendMessage, getMessage } from "@/lib/chat";
@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 
 import { MessageToUI, User } from "@/lib/types";
 
-import { AppContext } from "@/lib/context";
+import { AppContext } from "@/app/context";
 
 type Props = {
     key: Key,

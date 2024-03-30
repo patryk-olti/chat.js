@@ -2,17 +2,19 @@
 
 import { useState, useEffect, useContext } from "react";
 
-import "../app/globals.css";
+import "../globals.css"
 
-import Menu from '../components/menu';
+import Menu from '../components/menu'
 
-import MessageBox from "@/components/chat/messageBox";
-import UserList from "@/components/userList/userList";
+import MessageBox from "@/app/components/chat/messageBox";
+import UserList from "@/app/components/userList/userList";
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
 import { MessageToUI, UserFromDatabase, User } from "@/lib/types";
+
+import { AppContext } from "../context";
 
 const Chat = () => {
 
@@ -20,8 +22,12 @@ const Chat = () => {
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
     const [ messageArray, setMessageArray ] = useState<MessageToUI[]>([]);
 
+    const { userId } = useContext(AppContext);
+
     useEffect(() => {
         getAllUsers();
+
+        console.log('user id: ' + userId);
     }, []);
 
     const getAllUsers = async() => {
