@@ -60,7 +60,7 @@ const SingleUser = (props: Props) => {
                         tempMessageArray.push(
                             {
                                 id: Number(index),
-                                user: 'Inny User',
+                                user: 'Other',
                                 content: elem.content,
                                 ownerChat: false
                         });
