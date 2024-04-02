@@ -66,7 +66,7 @@ const SingleUser = (props: Props) => {
                         });
                     }
                 })
-
+                
                 setMessageArray(tempMessageArray);
                 setSelectedChatId(chatRoomId);
             }

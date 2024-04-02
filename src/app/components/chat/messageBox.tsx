@@ -12,6 +12,8 @@ import { MessageToUI } from "@/lib/types";
 
 import { AppContext } from "@/app/context";
 
+import { useRouter } from "next/navigation";
+
 type Props = {
     messageArray: MessageToUI[],
     setMessageArray: React.Dispatch<React.SetStateAction<MessageToUI[]>>
@@ -25,6 +27,8 @@ const MessageBox = (props: Props) => {
     const [ message, setMessage ] = useState<string>('');
 
     const { userId, selectedChatId } = useContext(AppContext);
+
+    const router = useRouter();
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
@@ -45,7 +49,7 @@ const MessageBox = (props: Props) => {
             setMessageArray([
                 ...messageArray,
                 {
-                    id: 1,
+                    id: messageArray.length + 1,
                     user: 'Patryk',
                     content: message,
                     ownerChat: true
@@ -55,21 +59,26 @@ const MessageBox = (props: Props) => {
             setSendLike(true);
         }
 
-        const response = await fetch('/api/message', {
-            method: 'POST',
-            body: JSON.stringify({
-                idUser: userId,
-                idChatroom: selectedChatId,
-                content: message
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        let result = await response.json();
-        let success = await result.success;
+        if(userId && selectedChatId){
+            const response = await fetch('/api/message', {
+                method: 'POST',
+                body: JSON.stringify({
+                    idUser: userId,
+                    idChatroom: selectedChatId,
+                    content: message
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            let result = await response.json();
+            let success = await result.success;
 
-        console.log(success);
+            console.log(success);
+        }else{
+            router.push('/');
+        }
+        
     }
 
     const handleSubmit = () => {
