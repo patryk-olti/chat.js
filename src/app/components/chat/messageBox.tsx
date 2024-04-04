@@ -32,7 +32,7 @@ const MessageBox = (props: Props) => {
     const router = useRouter();
 
     useEffect(() => {
-        pusherClient.subscribe('roomId');
+        pusherClient.subscribe('dasdasdasdasdasdas');
 
         pusherClient.bind('incoing-message',(text: string) => {
             setMessageArray([
@@ -47,7 +47,7 @@ const MessageBox = (props: Props) => {
         })
 
         return () => {
-            pusherClient.unsubscribe('roomId');
+            pusherClient.unsubscribe('dasdasdasdasdasdas');
         }
     }, [])
 
