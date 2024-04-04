@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Types } from 'mongoose';
 
 import SingleMessage from "./singleMessage";
@@ -13,6 +13,7 @@ import { MessageToUI } from "@/lib/types";
 import { AppContext } from "@/app/context";
 
 import { useRouter } from "next/navigation";
+import { pusherClient } from "@/app/pusher";
 
 type Props = {
     messageArray: MessageToUI[],
@@ -29,6 +30,26 @@ const MessageBox = (props: Props) => {
     const { userId, selectedChatId } = useContext(AppContext);
 
     const router = useRouter();
+
+    useEffect(() => {
+        pusherClient.subscribe('roomId');
+
+        pusherClient.bind('incoing-message',(text: string) => {
+            setMessageArray([
+                ...messageArray,
+                {
+                    id: messageArray.length + 1,
+                    user: 'Patryk',
+                    content: text,
+                    ownerChat: true
+                }
+            ]);
+        })
+
+        return () => {
+            pusherClient.unsubscribe('roomId');
+        }
+    }, [])
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
