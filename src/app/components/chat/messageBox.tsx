@@ -27,29 +27,31 @@ const MessageBox = (props: Props) => {
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
 
-    const { userId, selectedChatId } = useContext(AppContext);
+    const { userFullName, userId, selectedChatId } = useContext(AppContext);
 
     const router = useRouter();
 
     useEffect(() => {
-        pusherClient.subscribe('dasdasdasdasdasdas');
+        
+            pusherClient.subscribe(selectedChatId);
 
-        pusherClient.bind('incoing-message',(text: string) => {
-            setMessageArray([
-                ...messageArray,
-                {
-                    id: messageArray.length + 1,
-                    user: 'Patryk',
-                    content: text,
-                    ownerChat: true
-                }
-            ]);
-        })
-
-        return () => {
-            pusherClient.unsubscribe('dasdasdasdasdasdas');
-        }
-    }, [])
+            pusherClient.bind('incoing-message',(text: string) => {
+                setMessageArray([
+                    ...messageArray,
+                    {
+                        id: messageArray.length + 1,
+                        user: userFullName,
+                        content: text,
+                        ownerChat: true
+                    }
+                ]);
+            })
+    
+            return () => {
+                pusherClient.unsubscribe(selectedChatId);
+            }
+        
+    }, [ ])
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
