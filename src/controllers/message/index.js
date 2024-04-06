@@ -1,5 +1,7 @@
 import Message from '../../models/message';
 
+import { pusherServer } from '../../app/pusher';
+
 export async function getMessage(req, res){
     try {
         const { idChatroom } = req.query;
@@ -23,6 +25,8 @@ export async function getMessage(req, res){
 export async function createMessage(req, res){
     try{
         const { idUser, idChatroom, content } = req.body;
+
+        pusherServer.trigger(idChatroom, 'incoming-message', content);
 
         const message = await Message.create({
             idUser,

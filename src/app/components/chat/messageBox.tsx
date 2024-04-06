@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Types } from 'mongoose';
 
 import SingleMessage from "./singleMessage";
@@ -13,6 +13,7 @@ import { MessageToUI } from "@/lib/types";
 import { AppContext } from "@/app/context";
 
 import { useRouter } from "next/navigation";
+import { pusherClient } from "@/app/pusher";
 
 type Props = {
     messageArray: MessageToUI[],
@@ -26,9 +27,37 @@ const MessageBox = (props: Props) => {
     const [sendLike, setSendLike ] = useState<boolean>(true);
     const [ message, setMessage ] = useState<string>('');
 
-    const { userId, selectedChatId } = useContext(AppContext);
+    const { userFullName, userId, selectedChatId } = useContext(AppContext);
 
     const router = useRouter();
+
+    useEffect(() => {
+        pusherConnect();
+    }, [ ])
+
+    async function pusherConnect(){
+        const pusherChatId = await selectedChatId;
+
+        pusherClient.subscribe(pusherChatId);
+
+            pusherClient.bind('incoing-message',(text: string) => {
+                setMessageArray([
+                    ...messageArray,
+                    {
+                        id: messageArray.length + 1,
+                        user: userFullName,
+                        content: text,
+                        ownerChat: true
+                    }
+                ]);
+            })
+    
+            return () => {
+                pusherClient.unsubscribe(pusherChatId);
+            }
+    }
+
+    
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
