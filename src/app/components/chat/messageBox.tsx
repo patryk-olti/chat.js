@@ -32,8 +32,13 @@ const MessageBox = (props: Props) => {
     const router = useRouter();
 
     useEffect(() => {
-        
-            pusherClient.subscribe(selectedChatId);
+        pusherConnect();
+    }, [ ])
+
+    async function pusherConnect(){
+        const pusherChatId = await selectedChatId;
+
+        pusherClient.subscribe(pusherChatId);
 
             pusherClient.bind('incoing-message',(text: string) => {
                 setMessageArray([
@@ -48,10 +53,11 @@ const MessageBox = (props: Props) => {
             })
     
             return () => {
-                pusherClient.unsubscribe(selectedChatId);
+                pusherClient.unsubscribe(pusherChatId);
             }
-        
-    }, [ ])
+    }
+
+    
 
     const handleSetMessage: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         if(event.target.value.length > 0){
