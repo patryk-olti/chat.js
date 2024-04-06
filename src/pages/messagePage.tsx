@@ -1,5 +1,5 @@
-import MessageBox from "@/components/chat/messageBox";
-import UserList from "@/components/userList/userList";
+import MessageBox from "@/app/components/chat/messageBox";
+import UserList from "@/app/components/userList/userList";
 
 function MessagePage(){
 

@@ -1,35 +1,28 @@
-import { useState, useEffect } from "react";
-import { Types } from 'mongoose';
+'use client'
 
-import "../app/globals.css";
+import { useState, useEffect, useContext } from "react";
 
-import Menu from '../components/menu';
+import "../globals.css"
 
-import MessageBox from "@/components/chat/messageBox";
-import UserList from "@/components/userList/userList";
+import Menu from '../components/menu'
+
+import MessageBox from "@/app/components/chat/messageBox";
+import UserList from "@/app/components/userList/userList";
 
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 
-type Users = {
-    id: Types.ObjectId,
-    firstName: String,
-    lastName: String
-}
+import { MessageToUI, UserFromDatabase, User } from "@/lib/types";
 
-type dataFromFetch = {
-    _id: Types.ObjectId,
-    firstName: String,
-    lastName: String,
-    login: String,
-    password: String,
-    email: String
-}
+import { AppContext } from "../context";
 
 const Chat = () => {
 
-    const [ users, setUsers ] = useState<Users[]>([]);
+    const [ users, setUsers ] = useState<User[]>([]);
     const [ visibleMenu, setVisibleMenu ] = useState<boolean>(false);
+    const [ messageArray, setMessageArray ] = useState<MessageToUI[]>([]);
+
+    const { userId } = useContext(AppContext);
 
     useEffect(() => {
         getAllUsers();
@@ -43,11 +36,11 @@ const Chat = () => {
             const json = await res.json();
             const data = json.data;
             
-            let tempArray: Users[] = [];
+            let tempArray: User[] = [];
 
-            data.map((elem: dataFromFetch) => {
+            data.map((elem: UserFromDatabase) => {
                 tempArray.push({
-                    id: elem._id,
+                    _id: elem._id,
                     firstName: elem.firstName,
                     lastName: elem.lastName
                 })
@@ -78,10 +71,13 @@ const Chat = () => {
             </div>
             <div className="flex grow relative">
                 <div className="w-4/5 p-1 grow border">
-                    <MessageBox />
+                    <MessageBox messageArray={messageArray} setMessageArray={setMessageArray} />
                 </div>
                 <div className="w-1/5 p-1">
-                    <UserList users={users} />
+                    <UserList 
+                        users={users} 
+                        messageArray={messageArray}
+                        setMessageArray={setMessageArray} />
                 </div>
                 {
                     visibleMenu ?

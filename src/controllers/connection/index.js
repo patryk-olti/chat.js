@@ -23,3 +23,17 @@ export async function createConnection(req, res){
         return res.status(400).json({ success: false })
     }
 }
+
+export async function getConnectionForSingleUser(req, res){
+    try{
+        const { id } = req.query;
+
+        const result = await Connection.find({
+            idUser: id
+        });
+
+        return res.status(201).json({ success: true, data: result})
+    }catch(err){
+        return res.status(400).json({ success: false });
+    }
+}
